@@ -4,16 +4,10 @@ import { validate } from 'class-validator';
 import { Request, Response, NextFunction } from 'express';
 import { ValidationError } from '../shared/errors';
 
-export const ValidationType = Object.freeze({
-    QUERY: 'query',
-    REQUEST: 'request',
-    RESPONSE: 'response',
-    PARAMS: 'params',
-});
 
-export function validateDto<T>(classValidatorType: ClassConstructor<T>) {
+
+export function validateRequestBodyDto<T>(classValidatorType: ClassConstructor<T>) {
     return async (req: Request, res: Response, next: NextFunction) => {
-        console.log('validateDto', classValidatorType);
         try {
             // Check if req.body exists and is not empty
             if (!req.body || Object.keys(req.body).length === 0) {

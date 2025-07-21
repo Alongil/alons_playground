@@ -6,6 +6,7 @@ import { routes } from './routes/routes';
 import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
+import { NotFoundError } from './shared/errors';
 
 const app = express();
 
@@ -23,7 +24,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/health', healthRouter);
 app.use('/api', routes);
 
-
+app.use((req, res, next) => {
+  const error = new NotFoundError('Not Found', 404);
+  next(error);
+});
 // Error handler middleware (MUST be last)
 app.use(errorHandler);
 

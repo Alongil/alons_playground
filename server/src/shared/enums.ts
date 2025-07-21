@@ -9,3 +9,4 @@ export enum ErrorMessages {
     TOO_MANY_REQUESTS = 'Too Many Requests',
     VALIDATION_ERROR = 'Validation Error',
 }
+

@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { UserRole } from '../db/enums';
 
 @Entity('users')
 export class User {
@@ -7,6 +8,9 @@ export class User {
 
     @Column({ type: 'varchar', length: 255 })
     name: string;
+
+    @Column({ type: 'varchar', length: 255, default: 'admin'})
+    role: UserRole;
 
     @Column({ type: 'varchar', length: 255, unique: true })
     email: string;
@@ -20,6 +24,5 @@ export class User {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    // @OneToMany(() => Task, (task) => task.user)
-    // tasks: Task[];
+
 } 
