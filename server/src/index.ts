@@ -1,17 +1,31 @@
 import express from 'express';
 import { AppDataSource } from './data-source';
 import { healthRouter } from './routes/health';
+import { errorHandler } from './middleware/errorHandler';
+import { routes } from './routes/routes';
+import cors from 'cors';
+import helmet from 'helmet';
+import compression from 'compression';
 
 const app = express();
 
 const PORT = process.env.PORT || 3001;
 
-app.get('/', (_req, res) => {
-  res.send('Server is running!');
-});
+
+
+app.use(helmet());
+app.use(compression());
+app.use(express.json());
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
 // Health check routes
 app.use('/health', healthRouter);
+app.use('/api', routes);
+
+
+// Error handler middleware (MUST be last)
+app.use(errorHandler);
 
 AppDataSource.initialize()
   .then(() => {

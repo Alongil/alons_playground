@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "dev": "docker-compose up db & (cd server && npm run dev) & (cd client && npm run dev)",
+    "kill": "bash kill.sh"
+  },
   "dependencies": {
     "dotenv": "^17.2.0"
   }
